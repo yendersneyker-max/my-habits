@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="Tu seguimiento personal de hábitos y objetivos.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>MY HABITS</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div><div class="brand">MY HABITS<span>.</span></div><div class="eyebrow">YOUR DAILY ROUTINE</div></div>
+      <div class="avatar">MH</div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow" id="todayLabel">TU DÍA</div>
+        <h1>Un día más.<br><span>Un paso más.</span></h1>
+        <p>La constancia supera a la motivación.</p>
+      </section>
+      <section class="progress-card">
+        <div class="card-heading"><span>PROGRESO DE HOY</span><strong id="progressPercent">0%</strong></div>
+        <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+        <div class="progress-foot"><span id="progressCount">0 de 10 completados</span><span id="remainingCount">10 pendientes</span></div>
+      </section>
+      <nav class="tabs" aria-label="Secciones">
+        <button class="tab active" data-tab="today">Hoy</button>
+        <button class="tab" data-tab="calendar">Calendario</button>
+        <button class="tab" data-tab="stats">Estadísticas</button>
+        <button class="tab" data-tab="goals">Objetivos</button>
+      </nav>
+      <section id="todayView" class="view active">
+        <div class="section-title"><h2>Tus hábitos</h2><button id="addHabitBtn" class="text-button">＋ Añadir</button></div>
+        <div id="habitList"></div>
+      </section>
+      <section id="calendarView" class="view">
+        <div class="section-title"><h2>Calendario</h2><div class="month-controls"><button id="prevMonth" aria-label="Mes anterior">‹</button><span id="monthTitle"></span><button id="nextMonth" aria-label="Mes siguiente">›</button></div></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <p class="hint">Los puntos dorados indican días en los que completaste todos tus hábitos.</p>
+        <div id="selectedDay" class="selected-day"></div>
+      </section>
+      <section id="statsView" class="view">
+        <div class="section-title"><h2>Tu evolución</h2></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span>COMPLETADOS HOY</span><strong id="statToday">0</strong></article>
+          <article class="stat-card"><span>MEJOR RACHA</span><strong id="statStreak">0 días</strong></article>
+          <article class="stat-card"><span>ESTE MES</span><strong id="statMonth">0%</strong></article>
+          <article class="stat-card"><span>DÍAS ACTIVOS</span><strong id="statActive">0</strong></article>
+        </div>
+        <h3 class="subheading">Últimos 7 días</h3><div id="weekChart" class="week-chart"></div>
+      </section>
+      <section id="goalsView" class="view">
+        <div class="section-title"><h2>Objetivos mensuales</h2><button id="addGoalBtn" class="text-button">＋ Añadir</button></div>
+        <p class="hint">Pequeñas metas. Grandes cambios.</p>
+        <div id="goalList"></div>
+      </section>
+    </main>
+    <footer>DISCIPLINE <span>BUILDS</span> FREEDOM</footer>
+  </div>
+  <dialog id="habitDialog"><form method="dialog" id="habitForm"><div class="dialog-head"><h2>Nuevo hábito</h2><button class="close" value="cancel" aria-label="Cerrar">×</button></div><label>Nombre<input id="habitName" required maxlength="50" placeholder="Ej. Meditar 10 minutos"></label><label>Categoría<select id="habitCategory"><option>Salud</option><option>Crecimiento</option><option>Finanzas</option><option>Disciplina</option><option>Personal</option></select></label><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button id="saveHabit" class="primary" value="default">Guardar</button></div></form></dialog>
+  <dialog id="goalDialog"><form method="dialog" id="goalForm"><div class="dialog-head"><h2>Nuevo objetivo</h2><button class="close" value="cancel">×</button></div><label>Objetivo<input id="goalName" required maxlength="60" placeholder="Ej. Leer libros"></label><label>Meta del mes<input id="goalTarget" type="number" min="1" max="9999" required placeholder="4"></label><label>Unidad<input id="goalUnit" maxlength="20" placeholder="libros, euros, horas..."></label><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button class="primary" id="saveGoal" value="default">Guardar</button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
