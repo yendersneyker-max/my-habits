@@ -17,6 +17,17 @@
       <div><div class="brand">MY HABITS<span>.</span></div><div class="eyebrow">YOUR DAILY ROUTINE</div></div>
       <div class="avatar">MH</div>
     </header>
+    <section class="cloud-panel" aria-label="Sincronización">
+      <div class="cloud-status"><span class="cloud-dot" id="cloudDot"></span><span id="cloudStatus">Solo en este dispositivo</span></div>
+      <div class="cloud-fields">
+        <input id="authEmail" type="email" autocomplete="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico">
+        <input id="authPassword" type="password" autocomplete="current-password" placeholder="Contraseña" aria-label="Contraseña">
+        <button id="loginBtn" type="button">Entrar</button>
+        <button id="signupBtn" type="button">Crear cuenta</button>
+        <button id="logoutBtn" type="button" hidden>Cerrar sesión</button>
+      </div>
+      <p class="cloud-help" id="cloudHelp">Inicia sesión para sincronizar tus hábitos con tu widget.</p>
+    </section>
     <main>
       <section class="hero">
         <div class="eyebrow" id="todayLabel">TU DÍA</div>
@@ -64,6 +75,7 @@
   </div>
   <dialog id="habitDialog"><form method="dialog" id="habitForm"><div class="dialog-head"><h2>Nuevo hábito</h2><button class="close" value="cancel" aria-label="Cerrar">×</button></div><label>Nombre<input id="habitName" required maxlength="50" placeholder="Ej. Meditar 10 minutos"></label><label>Categoría<select id="habitCategory"><option>Salud</option><option>Crecimiento</option><option>Finanzas</option><option>Disciplina</option><option>Personal</option></select></label><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button id="saveHabit" class="primary" value="default">Guardar</button></div></form></dialog>
   <dialog id="goalDialog"><form method="dialog" id="goalForm"><div class="dialog-head"><h2>Nuevo objetivo</h2><button class="close" value="cancel">×</button></div><label>Objetivo<input id="goalName" required maxlength="60" placeholder="Ej. Leer libros"></label><label>Meta del mes<input id="goalTarget" type="number" min="1" max="9999" required placeholder="4"></label><label>Unidad<input id="goalUnit" maxlength="20" placeholder="libros, euros, horas..."></label><div class="dialog-actions"><button class="secondary" value="cancel">Cancelar</button><button class="primary" id="saveGoal" value="default">Guardar</button></div></form></dialog>
+  <script src="supabase-config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

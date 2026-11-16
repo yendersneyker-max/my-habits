@@ -20,3 +20,10 @@ Una forma sencilla es usar VS Code con la extensión Live Server y abrir index.h
 PARA PUBLICAR GRATIS
 Puedes subir estos archivos a un repositorio GitHub y activar GitHub Pages desde Settings > Pages.
 Después abre la URL HTTPS desde Safari en el iPhone y elige Compartir > Añadir a pantalla de inicio.
+
+SINCRONIZACIÓN CON SUPABASE Y SCRIPTABLE
+- supabase-config.js: Project URL y Publishable key (solo sb_publishable_).
+- scriptable/MY_HABITS_Widget.js: script para el widget mediano de iPhone.
+- CONFIGURACION-SINCRONIZACION.txt: guía de instalación.
+- SUPABASE-RLS.sql: SQL de referencia para tabla y políticas (no ejecutar de nuevo si ya existen).
+La aplicación conserva localStorage y sincroniza a Supabase cuando hay sesión iniciada.

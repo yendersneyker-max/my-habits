@@ -1,0 +1,48 @@
+MY HABITS · SINCRONIZACIÓN AUTOMÁTICA CON SUPABASE + SCRIPTABLE
+
+QUÉ INCLUYE
+- Mantiene los hábitos, calendario, estadísticas y objetivos existentes.
+- Conserva localStorage como respaldo local.
+- Añade registro/inicio/cierre de sesión en la aplicación.
+- Sincroniza el estado completo con la tabla public.habit_sync.
+- Incluye script de Scriptable para consultar los datos privados con la sesión del usuario.
+- El token de renovación de Scriptable se guarda en Keychain de iOS.
+
+ANTES DE PUBLICAR
+1. La URL de proyecto y la Publishable key ya están configuradas en supabase-config.js y en el script de Scriptable.
+2. Solo se ha incluido la Publishable key. Nunca añadas sb_secret_ ni service_role.
+
+SUPABASE
+La tabla public.habit_sync debe tener:
+- user_id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE
+- payload jsonb NOT NULL DEFAULT '{}'
+- updated_at timestamptz NOT NULL DEFAULT now()
+RLS activado y políticas SELECT, INSERT y UPDATE limitadas a auth.uid() = user_id.
+Las políticas que ya verificaste en tu proyecto cumplen este diseño. No hace falta volver a ejecutar SQL si siguen presentes.
+
+PUBLICAR EN GITHUB PAGES
+Sube/sustituye los archivos del ZIP en la raíz del repositorio, conservando icons/.
+Comprueba que supabase-config.js contiene la URL y Publishable key antes de subirlo.
+En GitHub Pages espera a que termine el despliegue y recarga la app. Si el iPhone conserva la versión antigua, cierra la PWA completamente y vuelve a abrirla; el service worker usa ahora my-habits-cache-v2.
+
+PRIMER USO EN MY HABITS
+1. Abre la aplicación publicada.
+2. Introduce correo y contraseña y pulsa Crear cuenta.
+3. Si Supabase exige confirmar el correo, abre el correo de confirmación y vuelve a la app.
+4. Inicia sesión.
+5. Si la cuenta no tiene datos en la nube, se subirán los datos locales actuales.
+6. Si ya hay datos en la nube, la app preguntará si quieres cargar la nube o conservar y subir los datos de este dispositivo. Se guarda una copia local antes de cargar datos de la nube.
+
+SCRIPTABLE EN IPHONE
+1. Abre scriptable/MY_HABITS_Widget.js y copia todo el código.
+2. Crea un script nuevo en Scriptable y pega el código.
+3. La Project URL y Publishable key ya están incluidas en el script descargado.
+4. Ejecuta el script dentro de Scriptable. La primera vez pedirá correo y contraseña de la misma cuenta de MY HABITS.
+5. Scriptable guarda el refresh token en Keychain. No compartas el código con tokens de sesión.
+6. Añade el widget mediano de Scriptable a la pantalla de inicio y selecciona MY_HABITS_Widget.
+
+LIMITACIONES IMPORTANTES
+- iOS decide cuándo refrescar widgets; no se actualizan instantáneamente al marcar un hábito. Se solicita una actualización aproximada cada 15 minutos, pero iOS puede retrasarla.
+- El widget muestra el progreso y la lista de hábitos del día. Para que se actualice, la PWA debe haber sincronizado los datos y Scriptable debe poder conectarse a internet.
+- Supabase Free puede pausar proyectos con inactividad prolongada y tiene límites de uso. No es una garantía de servicio permanente.
+- La clave Publishable no es secreta; la seguridad depende de autenticación y RLS. Nunca incluyas Secret/service_role keys en archivos del cliente.
